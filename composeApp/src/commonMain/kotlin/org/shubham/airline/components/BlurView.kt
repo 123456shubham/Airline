@@ -3,6 +3,7 @@ package org.shubham.airline.components
 
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.check
+import airline.composeapp.generated.resources.world
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -53,7 +54,7 @@ fun BlurView() {
                     .fillMaxWidth()
                     .blur(8.dp)
                     .onGloballyPositioned { sizeImage = it.size },
-                painter = painterResource( Res.drawable.check),
+                painter = painterResource( Res.drawable.world),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )

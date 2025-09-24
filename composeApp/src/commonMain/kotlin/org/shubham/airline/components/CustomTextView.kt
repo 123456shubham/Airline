@@ -22,7 +22,7 @@ fun rememberMontserrat(): FontFamily {
 }
 
 @Composable
-fun TitleLarge(text: String, modifier: Modifier = Modifier) {
+fun TitleLarge(text: String, modifier: Modifier = Modifier,textColour: Color) {
     val montserrat = rememberMontserrat()
     Text(
         text = text,
@@ -30,7 +30,7 @@ fun TitleLarge(text: String, modifier: Modifier = Modifier) {
             fontSize = 30.sp,
             fontFamily = montserrat,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF1E88E5) // Primary Color
+            color = textColour // Primary Color
         ),
         modifier = modifier
     )
@@ -82,7 +82,7 @@ fun SubtitleLarge(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SubtitleMedium(text: String, modifier: Modifier = Modifier) {
+fun SubtitleMedium(text: String, modifier: Modifier = Modifier,textColour: Color) {
     val montserrat = rememberMontserrat()
     Text(
         text = text,
@@ -90,7 +90,7 @@ fun SubtitleMedium(text: String, modifier: Modifier = Modifier) {
             fontSize = 16.sp,
             fontFamily = montserrat,
             fontWeight = FontWeight.Medium,
-            color = Color.Black
+            color = textColour
         ),
         modifier = modifier
     )
@@ -159,19 +159,14 @@ fun LabelSmall(text: String, modifier: Modifier = Modifier) {
 @Composable
 fun ShowText() {
     Column(modifier = Modifier.padding(16.dp)) {
-//        TitleLarge(stringResource( "Hello World"))
 
         TitleMedium("Register")
         TitleSmall("Small Title")
-
         Spacer_8dp()
-
         SubtitleLarge("Large Subtitle")
-        SubtitleMedium("Medium Subtitle")
+        SubtitleMedium("Medium Subtitle",textColour = Color.Black)
         SubtitleSmall("Small Subtitle")
-
         Spacer_8dp()
-
         LabelLarge("Large Label")
         LabelMedium("Medium Label")
         LabelSmall("Small Label")

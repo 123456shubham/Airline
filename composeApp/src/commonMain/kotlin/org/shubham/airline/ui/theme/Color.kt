@@ -36,7 +36,7 @@ val cottonBall = Color(241, 244, 253)
 val titleTextColor = Color(0xff1d2635)
 val subTitleTextColor = Color(0xff797878)
 
-val skyBlue = Color(0xff1790C7)
+val skyBlue = Color(0xFF009AE1)
 val lightBlue = Color(0xff5C3BFF)
 
 

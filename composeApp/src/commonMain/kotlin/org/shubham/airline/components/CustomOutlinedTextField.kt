@@ -5,19 +5,23 @@ import airline.composeapp.generated.resources.lock
 import airline.composeapp.generated.resources.montserrat_medium
 import airline.composeapp.generated.resources.visibility
 import airline.composeapp.generated.resources.visible
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +33,8 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.ui.theme.DarkTextPrimary
+import org.shubham.airline.ui.theme.skyBlue
 
 @Composable
 fun CustomOutlinedTextField(
@@ -39,7 +45,11 @@ fun CustomOutlinedTextField(
     leadingIcon: DrawableResource? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     singleLine: Boolean = true,
-    isEnabled: Boolean = true
+    isEnabled: Boolean = true,
+    borderColor: Color = Color.Black,
+    labelColor: Color = Color.Black   // 🌟 default: Sky Blue
+
+
 ) {
     val customFont = FontFamily(Font(Res.font.montserrat_medium)) // Replace with your font resource
 
@@ -51,7 +61,8 @@ fun CustomOutlinedTextField(
                 label,
                 fontFamily = customFont,
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                color = labelColor
             )
         },
         textStyle = TextStyle(
@@ -67,7 +78,13 @@ fun CustomOutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         singleLine = singleLine,
         enabled = isEnabled, // ✅ Controlled by state
-
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = borderColor,
+            unfocusedIndicatorColor = borderColor,
+            cursorColor = borderColor,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent
+        )
 
     )
 }
@@ -78,7 +95,9 @@ fun CustomPasswordField(
     onValueChange: (String) -> Unit,
     label: String = "Password",
     modifier: Modifier = Modifier,
-    iserror: Boolean
+    iserror: Boolean,
+    borderColor: Color = Color.Black,
+    labelColor: Color = Color.Black   // 🌟 default: Sky Blue
 ) {
     var passwordVisible by remember { mutableStateOf(false) }
     val customFont = FontFamily(Font(Res.font.montserrat_medium)) // Replace with your font resource
@@ -91,7 +110,8 @@ fun CustomPasswordField(
                 label,
                 fontFamily = customFont,
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                color = labelColor
             )
         },
         textStyle = TextStyle(
@@ -110,6 +130,13 @@ fun CustomPasswordField(
         },
         modifier = modifier.fillMaxWidth(),
         singleLine = true,
-        isError = iserror
+        isError = iserror,
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = borderColor,
+            unfocusedIndicatorColor = borderColor,
+            cursorColor = borderColor,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent
+        )
     )
 }
