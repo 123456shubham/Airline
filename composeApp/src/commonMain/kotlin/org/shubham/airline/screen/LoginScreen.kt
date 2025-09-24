@@ -3,6 +3,7 @@ package org.shubham.airline.screen
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.email
 import airline.composeapp.generated.resources.logo
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
