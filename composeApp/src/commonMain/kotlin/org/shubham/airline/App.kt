@@ -26,7 +26,7 @@ import org.shubham.airline.screen.SplashScreen
 @Preview
 fun App() {
 
-    Navigator(SplashScreen)
+    Navigator(LoginScreen)
 
 //    MaterialTheme {
 //        var showContent by remember { mutableStateOf(false) }

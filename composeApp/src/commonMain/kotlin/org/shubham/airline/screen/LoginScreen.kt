@@ -5,6 +5,7 @@ import airline.composeapp.generated.resources.email
 import airline.composeapp.generated.resources.logo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CustomOutlinedTextField
@@ -36,6 +39,7 @@ import org.shubham.airline.components.Spacer_4dp
 import org.shubham.airline.components.SubtitleMedium
 import org.shubham.airline.components.SubtitleSmall
 import org.shubham.airline.components.TitleLarge
+import org.shubham.airline.ui.theme.background
 import org.shubham.airline.ui.theme.black
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
@@ -44,53 +48,57 @@ object LoginScreen : Screen {
     @Composable
     override fun Content() {
         Box(modifier = Modifier.fillMaxSize().background(white)){
-            LoginScreenUI()
 
+            LoginScreenUI()
         }
     }
 }
 
 @Composable
-fun LoginScreenUI() {
-
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+fun LoginScreenUI(){
+    val navigator= LocalNavigator.currentOrThrow
+    var email by rememberSaveable{mutableStateOf("")}
+    var password by rememberSaveable{mutableStateOf("")}
 
     Box(modifier = Modifier.fillMaxSize()){
-        Image(painterResource(Res.drawable.logo), contentDescription = "Logo",
-            modifier = Modifier.height(200.dp).fillMaxWidth().align(Alignment.TopCenter))
-        Spacer_28dp()
-        Column (modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).align(Alignment.Center)){
+        Image(painterResource(Res.drawable.logo), contentDescription = "Logo", modifier = Modifier.height(200.dp).fillMaxWidth().align(Alignment.TopCenter))
+        Spacer_32dp()
+        Column(modifier = Modifier.align(Alignment.Center).padding(start = 10.dp, end = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer_10dp()
             TitleLarge("Login", modifier = Modifier.align(Alignment.CenterHorizontally), textColour = black)
             Spacer_4dp()
             SubtitleSmall("Add details to login", modifier = Modifier.align(Alignment.CenterHorizontally))
             Spacer_32dp()
-            CustomOutlinedTextField(value = email, onValueChange = { email = it },
+            CustomOutlinedTextField(value = email,
+                onValueChange = {email=it},
                 label = "Email",
                 leadingIcon = Res.drawable.email,
                 keyboardType = KeyboardType.Email,
                 singleLine = true,
                 isEnabled = true,
-                borderColor = black,
+                borderColor = black
+                )
+            Spacer_20dp()
+            CustomPasswordField(value = password,
+                onValueChange = {password=it},
+                label = "Password",
+                modifier = Modifier.align(Alignment.Start),
+                iserror = false,
+                borderColor = black
             )
 
-            Spacer_20dp()
-            CustomPasswordField(value = password, onValueChange = { password = it }, label = "Password",
-                modifier = Modifier.align(Alignment.Start), iserror = false)
             Spacer_10dp()
-            SubtitleMedium("Forget Password", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
+            SubtitleMedium("Forgeet Password", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
             Spacer_20dp()
-            AppButton("Login", background = skyBlue)
+            AppButton( "Login", background=skyBlue)
+
 
         }
 
-        Row(modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
-            .padding(bottom =20.dp),horizontalArrangement = Arrangement.Center)
-        {
-            SubtitleMedium("Don't have an account ?", textColour = black)
-            Spacer_4dp()
-            SubtitleMedium("Register", textColour = skyBlue)
+        Row(modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp).align(Alignment.BottomCenter), horizontalArrangement = Arrangement.Center) {
+            SubtitleSmall("Don't have an account?", modifier = Modifier.align(Alignment.CenterVertically))
+            SubtitleMedium("Register", textColour = skyBlue, modifier = Modifier.align(Alignment.CenterVertically).clickable{navigator.push(
+                RegisterScreen)})
         }
     }
 }
