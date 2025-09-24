@@ -57,16 +57,17 @@ object LoginScreen : Screen {
 
 @Composable
 fun LoginScreenUI(){
-    val navigator= LocalNavigator.currentOrThrow
+
+    val navigator=LocalNavigator.currentOrThrow
     var email by rememberSaveable{mutableStateOf("")}
     var password by rememberSaveable{mutableStateOf("")}
-
     Box(modifier = Modifier.fillMaxSize()){
-        Image(painterResource(Res.drawable.logo), contentDescription = "Logo", modifier = Modifier.height(200.dp).fillMaxWidth().align(Alignment.TopCenter))
-        Spacer_32dp()
-        Column(modifier = Modifier.align(Alignment.Center).padding(start = 10.dp, end = 10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painterResource(Res.drawable.logo), contentDescription = "Logo", modifier = Modifier.fillMaxWidth().height(200.dp).align(
+            Alignment.TopCenter))
+        Column(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).align(Alignment.Center)) {
+
             Spacer_10dp()
-            TitleLarge("Login", modifier = Modifier.align(Alignment.CenterHorizontally), textColour = black)
+            TitleLarge("Login", textColour = black, modifier = Modifier.align(Alignment.CenterHorizontally))
             Spacer_4dp()
             SubtitleSmall("Add details to login", modifier = Modifier.align(Alignment.CenterHorizontally))
             Spacer_32dp()
@@ -77,29 +78,24 @@ fun LoginScreenUI(){
                 keyboardType = KeyboardType.Email,
                 singleLine = true,
                 isEnabled = true,
-                borderColor = black
-                )
+                modifier = Modifier.fillMaxWidth())
             Spacer_20dp()
             CustomPasswordField(value = password,
-                onValueChange = {password=it},
-                label = "Password",
-                modifier = Modifier.align(Alignment.Start),
+                onValueChange = {password=it}, label = "Password",
                 iserror = false,
-                borderColor = black
-            )
-
+                modifier = Modifier.align(Alignment.Start))
             Spacer_10dp()
-            SubtitleMedium("Forgeet Password", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
-            Spacer_20dp()
-            AppButton( "Login", background=skyBlue)
+            SubtitleMedium("Forgot Password?", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
+            Spacer_28dp()
 
+            AppButton("Login",background=skyBlue)
 
         }
-
-        Row(modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp).align(Alignment.BottomCenter), horizontalArrangement = Arrangement.Center) {
-            SubtitleSmall("Don't have an account?", modifier = Modifier.align(Alignment.CenterVertically))
-            SubtitleMedium("Register", textColour = skyBlue, modifier = Modifier.align(Alignment.CenterVertically).clickable{navigator.push(
-                RegisterScreen)})
+        Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
+            SubtitleMedium("Don't have an account?", textColour = black, modifier = Modifier.align(Alignment.CenterVertically))
+            SubtitleMedium("Register", textColour = skyBlue, modifier = Modifier.clickable {
+                navigator.push(RegisterScreen)
+            })
         }
     }
 }
