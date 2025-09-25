@@ -3,9 +3,11 @@ package org.shubham.airline.screen
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.logo
 import airline.composeapp.generated.resources.mail
+import airline.composeapp.generated.resources.telephone
 import airline.composeapp.generated.resources.user
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -47,8 +51,6 @@ object RegisterScreen : Screen {
     @Composable
     override fun Content() {
         Box(modifier = Modifier.fillMaxSize().background(white)){
-
-            // name ,phone, email, password, register button ,
             RegisterScreenUI()
         }
     }
@@ -56,6 +58,7 @@ object RegisterScreen : Screen {
 
 @Composable
 fun RegisterScreenUI(){
+    val navigator = LocalNavigator.currentOrThrow
     var name by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable{mutableStateOf("")}
     var email by rememberSaveable{mutableStateOf("")}
@@ -93,27 +96,25 @@ fun RegisterScreenUI(){
                 leadingIcon = Res.drawable.user,
                 singleLine = true,
                 isEnabled = true,
+                keyboardType = KeyboardType.Text
             )
 
 
             Spacer_20dp()
 
-            CustomOutlinedTextField(value = phone, onValueChange = {phone=it}, label = "Phone" , leadingIcon = Res.drawable.user)
+            CustomOutlinedTextField(value = phone, onValueChange = {phone=it}, label = "Phone" , leadingIcon = Res.drawable.telephone, keyboardType = KeyboardType.Phone )
             Spacer_20dp()
-            CustomOutlinedTextField(value = email, onValueChange = {email=it}, label = "Email" , leadingIcon = Res.drawable.mail)
+            CustomOutlinedTextField(value = email, onValueChange = {email=it}, label = "Email" , leadingIcon = Res.drawable.mail,keyboardType = KeyboardType.Email)
             Spacer_20dp()
             CustomPasswordField(value = password, onValueChange = {password=it}, label = "Password" , iserror = false)
             Spacer_20dp()
 
             // Register Button
             AppButton("Register", background= skyBlue)
-
-
         }
-
         Row(modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp).align(Alignment.BottomCenter), horizontalArrangement = Arrangement.Center){
             SubtitleMedium("Already have an account?", textColour = black, modifier = Modifier.align(Alignment.CenterVertically))
-            SubtitleMedium("Login", textColour = skyBlue, modifier = Modifier.align(Alignment.CenterVertically))
+            SubtitleMedium("Login", textColour = skyBlue, modifier = Modifier.align(Alignment.CenterVertically).clickable{navigator.push(LoginScreen)})
 
         }
     }

@@ -30,6 +30,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.bottomNavigation.BottomTabs
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CustomOutlinedTextField
 import org.shubham.airline.components.CustomPasswordField
@@ -88,8 +89,7 @@ fun LoginScreenUI(){
             Spacer_10dp()
             SubtitleMedium("Forgot Password?", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
             Spacer_28dp()
-
-            AppButton("Login",background=skyBlue)
+            AppButton("Login",background=skyBlue, modifier = Modifier.clickable{navigator.replace(BottomTabs)})
 
         }
         Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
