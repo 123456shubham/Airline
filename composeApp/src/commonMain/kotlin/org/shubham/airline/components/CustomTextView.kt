@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
+import org.shubham.airline.ui.theme.black
 
 // ✅ Helper to load Montserrat properly
 @Composable
@@ -67,7 +68,7 @@ fun TitleSmall(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SubtitleLarge(text: String, modifier: Modifier = Modifier) {
+fun SubtitleLarge(text: String, modifier: Modifier = Modifier,textColour: Color) {
     val montserrat = rememberMontserrat()
     Text(
         text = text,
@@ -75,7 +76,7 @@ fun SubtitleLarge(text: String, modifier: Modifier = Modifier) {
             fontSize = 18.sp,
             fontFamily = montserrat,
             fontWeight = FontWeight.Medium,
-            color = Color.Black
+            color = textColour
         ),
         modifier = modifier
     )
@@ -135,7 +136,7 @@ fun LabelMedium(text: String, modifier: Modifier = Modifier) {
             fontSize = 14.sp,
             fontFamily = montserrat,
             fontWeight = FontWeight.Normal,
-            color = Color.Gray
+            color = Color.White
         ),
         modifier = modifier
     )
@@ -150,7 +151,7 @@ fun LabelSmall(text: String, modifier: Modifier = Modifier) {
             fontSize = 12.sp,
             fontFamily = montserrat,
             fontWeight = FontWeight.Normal,
-            color = Color.Gray
+            color = Color.White
         ),
         modifier = modifier
     )
@@ -163,7 +164,7 @@ fun ShowText() {
         TitleMedium("Register")
         TitleSmall("Small Title")
         Spacer_8dp()
-        SubtitleLarge("Large Subtitle")
+        SubtitleLarge("Large Subtitle", textColour = black)
         SubtitleMedium("Medium Subtitle",textColour = Color.Black)
         SubtitleSmall("Small Subtitle")
         Spacer_8dp()

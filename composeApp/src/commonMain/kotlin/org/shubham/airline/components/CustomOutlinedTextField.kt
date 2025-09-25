@@ -1,13 +1,14 @@
 package org.shubham.airline.components
 
 import airline.composeapp.generated.resources.Res
-import airline.composeapp.generated.resources.lock
 import airline.composeapp.generated.resources.montserrat_medium
 import airline.composeapp.generated.resources.padlock
 import airline.composeapp.generated.resources.visibility
 import airline.composeapp.generated.resources.visible
-import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -29,13 +30,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
-import org.shubham.airline.ui.theme.DarkTextPrimary
-import org.shubham.airline.ui.theme.skyBlue
+import org.shubham.airline.ui.theme.lightGrey
+import org.shubham.airline.ui.theme.white
 
 @Composable
 fun CustomOutlinedTextField(
@@ -72,7 +77,7 @@ fun CustomOutlinedTextField(
             fontWeight = FontWeight.Medium
         ),
         leadingIcon = leadingIcon?.let {
-            { Icon(painter = painterResource(it), contentDescription = label, modifier= Modifier.size(18.dp)) }
+            { Icon(painter = painterResource(it), contentDescription = label, modifier= Modifier.size(24.dp)) }
         },
 
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
@@ -139,5 +144,93 @@ fun CustomPasswordField(
             focusedContainerColor = Color.Transparent,
             unfocusedContainerColor = Color.Transparent
         )
+    )
+}
+
+
+
+// common Text View & storing dynamic value
+@Composable
+fun CommonTextView(
+    text: String,
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = 16.sp,
+    fontWeight: FontWeight = FontWeight.Normal,
+    color: Color = Color.Black,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    paddingStart: Dp = 0.dp,
+    paddingEnd: Dp = 0.dp,
+    paddingTop: Dp = 0.dp,
+    paddingBottom: Dp = 0.dp,
+    fontFamily: FontFamily = FontFamily.Default,
+    style: TextStyle = TextStyle.Default // optional full style override
+) {
+    Text(
+        text = text,
+        modifier = modifier.padding(
+            start = paddingStart,
+            end = paddingEnd,
+            top = paddingTop,
+            bottom = paddingBottom
+        ),
+        textAlign = textAlign,
+
+        style = style.merge(
+            TextStyle(
+                fontSize = fontSize,
+                fontWeight = fontWeight,
+                fontFamily = fontFamily,
+                color = color,
+            )
+        ),
+        maxLines = maxLines,
+        overflow = overflow
+    )
+}
+
+
+@Composable
+fun MyOutlinedTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+
+    placeholder: String,
+    leadingIcon: DrawableResource,
+    modifier: Modifier = Modifier,
+    labelColor: Color = Color.Black   // 🌟 default: Sky Blue
+
+) {
+    val customFont = FontFamily(Font(Res.font.montserrat_medium)) // Replace with your font resource
+
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = {
+            Text(
+                label,
+                fontFamily = customFont,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = labelColor
+            )
+        },
+        textStyle = TextStyle(
+            fontFamily = customFont,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium
+        ),
+        placeholder = { Text(placeholder) },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(leadingIcon),
+                contentDescription = null,
+                modifier= Modifier.size(28.dp)
+            )
+        },
+        modifier = modifier.fillMaxWidth(),
+        singleLine = true,
     )
 }

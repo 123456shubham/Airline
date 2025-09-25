@@ -1,7 +1,6 @@
 package org.shubham.airline.screen
 
 import airline.composeapp.generated.resources.Res
-import airline.composeapp.generated.resources.email
 import airline.composeapp.generated.resources.logo
 import airline.composeapp.generated.resources.mail
 
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +40,6 @@ import org.shubham.airline.components.Spacer_4dp
 import org.shubham.airline.components.SubtitleMedium
 import org.shubham.airline.components.SubtitleSmall
 import org.shubham.airline.components.TitleLarge
-import org.shubham.airline.ui.theme.background
 import org.shubham.airline.ui.theme.black
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
@@ -89,7 +86,7 @@ fun LoginScreenUI(){
             Spacer_10dp()
             SubtitleMedium("Forgot Password?", textColour = skyBlue, modifier = Modifier.align(Alignment.End))
             Spacer_28dp()
-            AppButton("Login",background=skyBlue, modifier = Modifier.clickable{navigator.replace(BottomTabs)})
+            AppButton("Login",background=skyBlue, onClick = {navigator.replace(BottomTabs)})
 
         }
         Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center) {
