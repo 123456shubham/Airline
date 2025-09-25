@@ -3,6 +3,7 @@ package org.shubham.airline.components
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.lock
 import airline.composeapp.generated.resources.montserrat_medium
+import airline.composeapp.generated.resources.padlock
 import airline.composeapp.generated.resources.visibility
 import airline.composeapp.generated.resources.visible
 import androidx.compose.foundation.border
@@ -119,7 +120,7 @@ fun CustomPasswordField(
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium
         ),
-        leadingIcon = { Icon(painterResource(Res.drawable.lock), contentDescription = "Password",modifier.size(24.dp)) },
+        leadingIcon = { Icon(painterResource(Res.drawable.padlock), contentDescription = "Password",modifier.size(24.dp)) },
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {

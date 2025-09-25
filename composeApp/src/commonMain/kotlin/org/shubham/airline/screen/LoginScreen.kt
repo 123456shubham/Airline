@@ -3,6 +3,7 @@ package org.shubham.airline.screen
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.email
 import airline.composeapp.generated.resources.logo
+import airline.composeapp.generated.resources.mail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -74,7 +75,7 @@ fun LoginScreenUI(){
             CustomOutlinedTextField(value = email,
                 onValueChange = {email=it},
                 label = "Email",
-                leadingIcon = Res.drawable.email,
+                leadingIcon = Res.drawable.mail,
                 keyboardType = KeyboardType.Email,
                 singleLine = true,
                 isEnabled = true,
