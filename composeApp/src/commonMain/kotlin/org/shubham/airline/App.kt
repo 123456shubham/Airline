@@ -19,6 +19,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.compose_multiplatform
 import cafe.adriel.voyager.navigator.Navigator
+import org.shubham.airline.screen.BookingFlightScreen
 import org.shubham.airline.screen.FlightsScreen
 import org.shubham.airline.screen.HomeScreen
 import org.shubham.airline.screen.LoginScreen

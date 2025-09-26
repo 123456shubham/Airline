@@ -66,6 +66,9 @@ kotlin {
 
             // For Transitions/Animations
             implementation("cafe.adriel.voyager:voyager-transitions:1.0.1")
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1") // latest
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
