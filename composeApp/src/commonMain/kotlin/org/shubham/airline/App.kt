@@ -20,6 +20,7 @@ import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.compose_multiplatform
 import cafe.adriel.voyager.navigator.Navigator
 import org.shubham.airline.screen.BookingFlightScreen
+import org.shubham.airline.screen.FlightInfoScreen
 import org.shubham.airline.screen.FlightsScreen
 import org.shubham.airline.screen.HomeScreen
 import org.shubham.airline.screen.LoginScreen
@@ -30,7 +31,7 @@ import org.shubham.airline.screen.SplashScreen
 @Preview
 fun App() {
 
-    Navigator(LoginScreen)
+    Navigator(FlightInfoScreen)
 
 //    MaterialTheme {
 //        var showContent by remember { mutableStateOf(false) }

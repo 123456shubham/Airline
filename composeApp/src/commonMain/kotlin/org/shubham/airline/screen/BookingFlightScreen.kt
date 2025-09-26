@@ -51,6 +51,7 @@ import org.shubham.airline.ui.theme.white
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.zIndex
 import org.jetbrains.compose.resources.painterResource
 
 
@@ -340,57 +341,58 @@ fun FlightCardUI() {
 
 @Composable
 fun FlightListUI() {
-    Card(modifier = Modifier.fillMaxWidth().background(white).padding(horizontal = 20.dp),
-        elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(white)
-        ){
-        Row(
+
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-
-                .clip(RoundedCornerShape(20.dp)),
-
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(horizontal = 20.dp)
+                .zIndex(1f), // ensures it appears above the background image
+            elevation = CardDefaults.cardElevation(10.dp),
+            colors = CardDefaults.cardColors(Color.White),
+            shape = RoundedCornerShape(10.dp)
         ) {
-            // Departure Column
-            Column(horizontalAlignment = Alignment.Start, modifier = Modifier.padding(start = 10.dp)) {
-                Spacer_10dp()
-                CommonTextView("26 Sep, 10:50 AM", fontSize = 12.sp, color = Color.Black)
-                Spacer_10dp()
-                CommonTextView("CMB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
-                Spacer_10dp()
-                CommonTextView("Colombo", fontSize = 12.sp, color = Color.Black)
-                Spacer_10dp()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Departure
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.padding(start = 10.dp)
+                ) {
+                    CommonTextView("26 Sep, 10:50 AM", fontSize = 12.sp, color = Color.Black)
+                    CommonTextView("CMB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                    CommonTextView("Colombo", fontSize = 12.sp, color = Color.Black)
+                }
 
+                // Flight path with airplane
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.zIndex(2f) // airplane icon in the topmost layer
+                ) {
+                    Image(
+                        painter = painterResource(Res.drawable.flight),
+                        contentDescription = "Flight",
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
+
+                // Arrival
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.padding(end = 10.dp)
+                ) {
+                    CommonTextView("10:50 PM", fontSize = 12.sp, color = Color.Black)
+                    CommonTextView("DXB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                    CommonTextView("Dubai", fontSize = 12.sp, color = Color.Black)
+                }
             }
-
-            // Flight path with airplane
-            Box(contentAlignment = Alignment.Center) {
-                Image(
-                    painter = painterResource(Res.drawable.world_half),
-                    contentDescription = "HalfWorld",
-                    modifier = Modifier.height(60.dp)
-                )
-                Image(
-                    painter = painterResource(Res.drawable.flight),
-                    contentDescription = "Flight",
-                    modifier = Modifier.size(28.dp)
-                )
-            }
-
-            // Arrival Column
-            Column(horizontalAlignment = Alignment.End, modifier = Modifier.padding(end = 10.dp)) {
-                Spacer_10dp()
-                CommonTextView("10:50 PM", fontSize = 12.sp, color = Color.Black)
-                Spacer_10dp()
-                CommonTextView("DXB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
-                Spacer_10dp()
-                CommonTextView("Dubai", fontSize = 12.sp, color = Color.Black)
-                Spacer_10dp()
-
-            }
-        }
     }
-
 }
+
+

@@ -2,8 +2,12 @@ package org.shubham.airline.screen
 
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.flight
+import airline.composeapp.generated.resources.indigo
+import airline.composeapp.generated.resources.left_arrow
+import airline.composeapp.generated.resources.right_arrow
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,10 +16,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,281 +31,226 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
+import cafe.adriel.voyager.core.screen.Screen
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.bottomNavigation.BottomTabs
+import org.shubham.airline.components.AppButton
+import org.shubham.airline.components.CommonTextView
+import org.shubham.airline.components.Spacer_10dp
+import org.shubham.airline.components.Spacer_20dp
+import org.shubham.airline.components.Spacer_32dp
+import org.shubham.airline.components.Spacer_4dp
+import org.shubham.airline.components.SubtitleLarge
+import org.shubham.airline.ui.theme.black
+import org.shubham.airline.ui.theme.grey
+import org.shubham.airline.ui.theme.skyBlue
+import org.shubham.airline.ui.theme.white
+import org.shubham.airline.ui.theme.yellowColor
+
+
+object FlightInfoScreen : Screen{
+    @Composable
+    override fun Content() {
+        FlightInfoScreenUI()
+    }
+
+}
 
 @Composable
-fun FlightInfoScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF1A2980), // Dark blue
-                        Color(0xFF26D0CE)  // Teal
-                    )
-                )
-            )
-    ) {
-        // Background pattern elements
-        BackgroundPattern()
+fun FlightInfoScreenUI(){
 
-        // Main content
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            FlightInfoCard()
+    Box(modifier = Modifier.fillMaxSize().background(white)){
+        Column {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .clip(RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp))
+                    .background(skyBlue) // apply after clip
+            ) {
+
+                // Back button aligned to start
+                Image(
+                    painter = painterResource(Res.drawable.left_arrow),
+                    contentDescription = "Back Btn",
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 16.dp)
+                        .size(18.dp),
+                    colorFilter = ColorFilter.tint(white)
+                )
+
+                // Title centered
+                SubtitleLarge(
+                    text = "Book a Flight",
+                    textColour = white,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+
+            }
+
+            Card(modifier = Modifier.fillMaxWidth().offset(y= (-20).dp)
+                .padding(start = 20.dp, end = 20.dp),
+                colors = CardDefaults.cardColors(white),
+                elevation = CardDefaults.cardElevation(10.dp)
+            ){
+                CommonTextView("Flight Info",
+                    textAlign = TextAlign.Center,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = black,
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
+
+            }
+
+            Spacer_20dp()
+
+            FlightInfoUI()
+            Spacer_20dp()
+            FlightName()
+            Spacer_20dp()
+            FlightPrice()
+            Spacer_32dp()
+            AppButton("Continue",background=skyBlue, onClick = {}, paddingStart = 20.dp, paddingEnd = 20.dp)
         }
+
     }
+
 }
 
 @Composable
-fun BackgroundPattern() {
-    // You can add more sophisticated background elements here
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        // Add some subtle circles or other shapes for background depth
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .size(200.dp)
-                .background(
-                    color = Color(0x15FFFFFF),
-                    shape = RoundedCornerShape(100.dp)
-                )
-        )
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .size(150.dp)
-                .background(
-                    color = Color(0x10FFFFFF),
-                    shape = RoundedCornerShape(75.dp)
-                )
-        )
-    }
-}
+fun FlightInfoUI() {
 
-@Composable
-fun FlightInfoCard() {
-    Box(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFFFFFFFF), // White
-                        Color(0xFFF8F9FA)   // Light gray
-                    )
-                )
-            )
-            .padding(24.dp)
+            .padding(horizontal = 20.dp)
+            .zIndex(1f), // ensures it appears above the background image
+        elevation = CardDefaults.cardElevation(10.dp),
+        colors = CardDefaults.cardColors(Color.White),
+        shape = RoundedCornerShape(10.dp)
     ) {
-        Column {
-            // Header with date and time
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            // Departure
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(start = 10.dp)
             ) {
-                Text(
-                    text = "18 Dec, 10:50",
-                    color = Color(0xFF2D3748),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                CommonTextView("26 Sep, 10:50 AM", fontSize = 12.sp, color = Color.Black)
+                CommonTextView("CMB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                CommonTextView("Colombo", fontSize = 12.sp, color = Color.Black)
+            }
 
+            // Flight path with airplane
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.zIndex(2f) // airplane icon in the topmost layer
+            ) {
                 Image(
-                    painter = painterResource( Res.drawable.flight),
+                    painter = painterResource(Res.drawable.flight),
                     contentDescription = "Flight",
-                    modifier = Modifier.size(24.dp),
-
-
+                    modifier = Modifier.size(28.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Flight route information
-            FlightRoute()
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Duration information
-            FlightDuration()
+            // Arrival
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(end = 10.dp)
+            ) {
+                CommonTextView("10:50 PM", fontSize = 12.sp, color = Color.Black)
+                CommonTextView("DXB", fontSize = 20.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                CommonTextView("Dubai", fontSize = 12.sp, color = Color.Black)
+            }
         }
     }
 }
 
 @Composable
-fun FlightRoute() {
-    Column {
-        // Departure information
-        AirportInfo(
-            time = "10:50",
-            code = "CMB",
-            city = "Colombo",
-            isDeparture = true
-        )
+fun FlightName(){
 
-        Spacer(modifier = Modifier.height(16.dp))
+    Card(modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp),
+        colors = CardDefaults.cardColors(white),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.cardElevation(10.dp)){
 
-        // Connecting line with airplane icon
-        RouteConnector()
+        Row(modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp)){
+            Spacer_10dp()
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Image(painterResource(Res.drawable.indigo), contentDescription = "logo", modifier = Modifier.size(28.dp))
+            Spacer_10dp()
+            CommonTextView("Indigo", fontSize = 22.sp, modifier = Modifier.fillMaxWidth().weight(1f), color = yellowColor, fontWeight = FontWeight.Bold)
+            CommonTextView("3 hrs", fontSize = 14.sp, color = grey, fontWeight = FontWeight.Bold, modifier = Modifier.align(
+                Alignment.CenterVertically))
+            Spacer_10dp()
 
-        // Arrival information
-        AirportInfo(
-            time = "02:50",
-            code = "DXB",
-            city = "Dubai",
-            isDeparture = false
-        )
+        }
+
     }
+
 }
 
 @Composable
-fun AirportInfo(time: String, code: String, city: String, isDeparture: Boolean) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+fun FlightPrice() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+        colors = CardDefaults.cardColors(Color.White),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.cardElevation(10.dp)
     ) {
-        Text(
-            text = time,
-            color = Color(0xFF4A5568),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.width(80.dp)
-        )
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column(
-            modifier = Modifier.weight(1f)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp, horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = code,
-                color = Color(0xFF2D3748),
-                fontSize = 24.sp,
+            // Fare info
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
+                CommonTextView(
+                    "Total fare",
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+                CommonTextView(
+                    "including tax",
+                    fontSize = 14.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            CommonTextView(
+                "₹ 60000",
+                fontSize = 16.sp,
+                color = Color.Black,
                 fontWeight = FontWeight.Bold
             )
-            Text(
-                text = city,
-                color = Color(0xFF718096),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-
-        // Departure/Arrival indicator
-        Text(
-            text = if (isDeparture) "Departure" else "Arrival",
-            color = if (isDeparture) Color(0xFFE53E3E) else Color(0xFF38A169),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .background(
-                    color = if (isDeparture) Color(0xFFFFE5E5) else Color(0xFFF0FFF4),
-                )
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        )
-    }
-}
-
-@Composable
-fun RouteConnector() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Spacer(modifier = Modifier.width(80.dp))
-
-        // Dotted line
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(1.dp)
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color(0xFFCBD5E0),
-                            Color.Transparent
-                        )
-                    )
-                )
-        )
-
-        // Airplane icon in circle
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .background(Color(0xFF4299E1), RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
+            // Right arrow
             Image(
-                painter = painterResource(Res.drawable.flight),
-                contentDescription = null,
-                modifier = Modifier.size(16.dp),
+                painter = painterResource(Res.drawable.right_arrow),
+                contentDescription = "Right Arrow",
+                modifier = Modifier.size(18.dp)
             )
         }
-
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(1.dp)
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color(0xFFCBD5E0),
-                            Color.Transparent
-                        )
-                    )
-                )
-        )
     }
-}
-
-@Composable
-fun FlightDuration() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "Flight Duration:",
-            color = Color(0xFF4A5568),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = "4h 00m",
-            color = Color(0xFF2D3748),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-// Preview function (for Android) - you can remove this for pure multiplatform
-@Composable
-fun PreviewFlightInfo() {
-    FlightInfoScreen()
 }
