@@ -26,12 +26,13 @@ import org.shubham.airline.screen.HomeScreen
 import org.shubham.airline.screen.LoginScreen
 import org.shubham.airline.screen.RegisterScreen
 import org.shubham.airline.screen.SplashScreen
+import org.shubham.airline.screen.TravelersInfo
 
 @Composable
 @Preview
 fun App() {
 
-    Navigator(FlightInfoScreen)
+    Navigator(TravelersInfo)
 
 //    MaterialTheme {
 //        var showContent by remember { mutableStateOf(false) }
