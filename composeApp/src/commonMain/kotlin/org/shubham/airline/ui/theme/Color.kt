@@ -19,8 +19,7 @@ val DarkTextPrimary = Color(0xFFFFFFFF) // White Text for Dark Mode
 
 // Button Colors
 val ButtonLight = Color(0xFF1E88E5) // Primary Blue Button for Light Mode
-val ButtonDark = Color(0xFF0D47A1) // Darker Blue for Dark Mode
-
+val ButtonDark = Color(0xFF0009AE1) // Darker Blue for Dark Mode
 // Card Colors
 val LightCard = Color(0xFFFFFFFF) // White Card Background
 val DarkCard = Color(0xFF1E1E1E) // Dark Card Background
