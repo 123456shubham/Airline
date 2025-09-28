@@ -36,8 +36,7 @@ import org.shubham.airline.screen.TravelersInfo
 @Preview
 fun App() {
 
-//    Navigator(DepartureAirportScreen)
-    DepartureAirportScreenUI()
+    Navigator(LoginScreen)
 
 //    MaterialTheme {
 //        var showContent by remember { mutableStateOf(false) }

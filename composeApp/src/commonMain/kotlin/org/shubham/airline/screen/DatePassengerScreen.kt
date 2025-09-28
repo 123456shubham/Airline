@@ -41,20 +41,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.Spacer_10dp
 import org.shubham.airline.components.Spacer_20dp
 import org.shubham.airline.components.Spacer_4dp
 import org.shubham.airline.components.SubtitleLarge
+import org.shubham.airline.components.SubtitleSmall
 import org.shubham.airline.components.TitleMedium
+import org.shubham.airline.components.TitleSmall
 import org.shubham.airline.ui.theme.black
 import org.shubham.airline.ui.theme.grey
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 
-object DatePassengerScreen : Screen {
+object DatePassengerScreen : Screen , HideBottomBar{
     @Composable
     override fun Content() {
 
@@ -64,6 +69,7 @@ object DatePassengerScreen : Screen {
 
 @Composable
 fun DatePassengerScreenUI(){
+    val navigator= LocalNavigator.currentOrThrow
     var selectedOption by rememberSaveable { mutableStateOf("Return") }
     val options = listOf("One way", "Return", "Multi-City")
 
@@ -79,15 +85,15 @@ fun DatePassengerScreenUI(){
                 ) {
 
                     // Back button aligned to start
-                    Image(
-                        painter = painterResource(Res.drawable.left_arrow),
-                        contentDescription = "Back Btn",
-                        modifier = Modifier
-                            .align(Alignment.CenterStart)
-                            .padding(start = 16.dp)
-                            .size(18.dp),
-                        colorFilter = ColorFilter.tint(white)
-                    )
+//                    Image(
+//                        painter = painterResource(Res.drawable.left_arrow),
+//                        contentDescription = "Back Btn",
+//                        modifier = Modifier
+//                            .align(Alignment.CenterStart)
+//                            .padding(start = 16.dp)
+//                            .size(18.dp),
+//                        colorFilter = ColorFilter.tint(white)
+//                    )
 
                     // Title centered
                     SubtitleLarge(
@@ -221,12 +227,13 @@ fun DatePassengerScreenUI(){
 
 
             item {
+                Spacer_20dp()
                 ClassTravelUI()
             }
 
             item {
                 Spacer_20dp()
-                AppButton("Search Flight",background=skyBlue, onClick = {}, paddingStart = 20.dp, paddingEnd = 20.dp)
+                AppButton("Search Flight",background=skyBlue, onClick = {navigator.push(DepartureAirportScreen)}, paddingStart = 20.dp, paddingEnd = 20.dp)
                 Spacer_20dp()
 
             }
@@ -339,7 +346,7 @@ fun PassengerItemUI(
                     .weight(1f)
                     .padding(horizontal = 20.dp)
             ) {
-                TitleMedium(title, modifier = Modifier.fillMaxWidth())
+                TitleSmall(title, modifier = Modifier.fillMaxWidth())
                 CommonTextView(subtitle, fontSize = 14.sp, color = grey, modifier = Modifier.fillMaxWidth())
             }
 
@@ -386,7 +393,7 @@ fun PassengerItemUI(
 @Composable
 fun ClassTravelUI(){
 
-    Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp), colors = CardDefaults.cardColors(white)) {
+    Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp), colors = CardDefaults.cardColors(white), elevation = CardDefaults.cardElevation(10.dp)) {
         Row (modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp, horizontal = 20.dp)){
             CommonTextView("Class Of Travel", modifier = Modifier.fillMaxWidth().weight(1f))
             Image(painterResource(Res.drawable.right_arrow),

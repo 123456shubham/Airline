@@ -2,6 +2,7 @@ package org.shubham.airline.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -18,7 +19,7 @@ object CheckInScreen : Screen{
     @Composable
     override fun Content() {
 
-        Box(modifier = Modifier.fillMaxWidth().background(white)){
+        Box(modifier = Modifier.fillMaxSize().background(white)){
 
             CommonTextView("Online check-in facility available between 24 hour before capture", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).align(Alignment.Center))
         }

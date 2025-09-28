@@ -7,6 +7,7 @@ import airline.composeapp.generated.resources.left_arrow
 import airline.composeapp.generated.resources.right_arrow
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.Spacer_10dp
@@ -50,7 +54,7 @@ import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 import org.shubham.airline.ui.theme.yellowColor
 
-object ManageBooking : Screen {
+object ManageBooking : Screen, HideBottomBar {
     @Composable
     override fun Content() {
         ManageBookingUI()
@@ -59,6 +63,8 @@ object ManageBooking : Screen {
 
 @Composable
 fun ManageBookingUI(){
+
+    val navigator= LocalNavigator.currentOrThrow
 
     Box(modifier = Modifier.fillMaxSize().background(white)){
         Column {
@@ -76,6 +82,7 @@ fun ManageBookingUI(){
                     contentDescription = "Back Btn",
                     modifier = Modifier
                         .align(Alignment.CenterStart)
+                        .clickable{navigator.pop()}
                         .padding(start = 16.dp)
                         .size(18.dp),
                     colorFilter = ColorFilter.tint(white)

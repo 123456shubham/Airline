@@ -38,7 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.bottomNavigation.BottomTabs
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
@@ -54,7 +57,7 @@ import org.shubham.airline.ui.theme.white
 import org.shubham.airline.ui.theme.yellowColor
 
 
-object FlightInfoScreen : Screen{
+object FlightInfoScreen : Screen, HideBottomBar{
     @Composable
     override fun Content() {
         FlightInfoScreenUI()
@@ -65,6 +68,7 @@ object FlightInfoScreen : Screen{
 @Composable
 fun FlightInfoScreenUI(){
 
+    val navigator= LocalNavigator.currentOrThrow
     Box(modifier = Modifier.fillMaxSize().background(white)){
         Column {
             Box(
@@ -82,7 +86,7 @@ fun FlightInfoScreenUI(){
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(start = 16.dp)
-                        .size(18.dp),
+                        .size(18.dp).clickable{navigator.pop()},
                     colorFilter = ColorFilter.tint(white)
                 )
 
@@ -117,7 +121,7 @@ fun FlightInfoScreenUI(){
             Spacer_20dp()
             FlightPrice()
             Spacer_32dp()
-            AppButton("Continue",background=skyBlue, onClick = {}, paddingStart = 20.dp, paddingEnd = 20.dp)
+            AppButton("Continue",background=skyBlue, onClick = {navigator.push(TravelersInfo)}, paddingStart = 20.dp, paddingEnd = 20.dp)
         }
 
     }

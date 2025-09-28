@@ -2,7 +2,7 @@ package org.shubham.airline.screen
 
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.flight
-import airline.composeapp.generated.resources.world_half
+import airline.composeapp.generated.resources.left_arrow
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -50,12 +49,16 @@ import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.zIndex
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 
 
-object BookingFlightScreen : Screen {
+object BookingFlightScreen : Screen , HideBottomBar{
     @Composable
     override fun Content() {
         BookingFlightScreenUI()
@@ -64,6 +67,12 @@ object BookingFlightScreen : Screen {
 
 @Composable
 fun BookingFlightScreenUI(){
+    val navigator=LocalNavigator.currentOrThrow
+    LazyColumn {
+        item {
+
+        }
+    }
     Box(modifier = Modifier.fillMaxSize().background(white)){
         var selectedOption by rememberSaveable { mutableStateOf("Return") }
         val options = listOf("One way", "Return", "Multi-City")
@@ -75,6 +84,16 @@ fun BookingFlightScreenUI(){
                     .clip(RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp))
                     .background(skyBlue) // apply after clip
             ) {
+
+                Image(
+                        painter = painterResource(Res.drawable.left_arrow),
+                        contentDescription = "Back Btn",
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 16.dp)
+                            .size(18.dp).clickable{navigator.pop()},
+                        colorFilter = ColorFilter.tint(white)
+                    )
                 SubtitleLarge(
                     text = "Book a Flight",
                     modifier = Modifier.align(Alignment.Center),
@@ -149,12 +168,12 @@ fun BookingFlightScreenUI(){
 @Composable
 fun DatePriceSelectorWithMonth() {
     val dates = listOf(
-        Triple("6", "Wed", "$220"),
-        Triple("7", "Thu", "$225"),
-        Triple("8", "Fri", "$230"),
-        Triple("9", "Sat", "$215"),
-        Triple("10", "Sun", "$220"),
-        Triple("11", "Mon", "$240"),
+        Triple("6", "Wed", "₹220"),
+        Triple("7", "Thu", "₹225"),
+        Triple("8", "Fri", "₹230"),
+        Triple("9", "Sat", "₹215"),
+        Triple("10", "Sun", "₹220"),
+        Triple("11", "Mon", "₹240"),
     )
 
     var selectedIndex by rememberSaveable { mutableStateOf(2) }
@@ -235,9 +254,11 @@ fun DatePriceSelectorWithMonth() {
 
 @Composable
 fun FlightCardUI() {
+    val navigator=LocalNavigator.currentOrThrow
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable{navigator.push(FlightInfoScreen)}
             .padding(horizontal = 20.dp, vertical = 10.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
@@ -327,7 +348,7 @@ fun FlightCardUI() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "$220",
+                        text = "₹220",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -341,10 +362,12 @@ fun FlightCardUI() {
 
 @Composable
 fun FlightListUI() {
+    val navigator=LocalNavigator.currentOrThrow
 
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .clickable{navigator.push(FlightInfoScreen)}
                 .padding(horizontal = 20.dp)
                 .zIndex(1f), // ensures it appears above the background image
             elevation = CardDefaults.cardElevation(10.dp),

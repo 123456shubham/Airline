@@ -28,8 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.Spacer_10dp
@@ -40,7 +43,7 @@ import org.shubham.airline.ui.theme.grey
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 
-object DepartureAirportScreen : Screen {
+object DepartureAirportScreen : Screen, HideBottomBar {
     @Composable
     override fun Content() {
         DepartureAirportScreenUI()
@@ -73,6 +76,7 @@ fun DepartureAirportScreenUI(){
 
 @Composable
 fun AirportListScreen() {
+    val navigator= LocalNavigator.currentOrThrow
     val allAirports = listOf(
         Airport("Abu Dhabi", "United Arab Emirates", "AUH"),
         Airport("Ad Dammam", "Saudi Arabia", "DMM"),
@@ -101,7 +105,8 @@ fun AirportListScreen() {
         // Airport List
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize().padding(end = 24.dp) // leave space for sidebar
+            modifier = Modifier.fillMaxSize().padding(end = 24.dp).clickable{navigator.push(
+                BookingFlightScreen)} // leave space for sidebar
         ) {
             grouped.forEach { (letter, list) ->
                 item {

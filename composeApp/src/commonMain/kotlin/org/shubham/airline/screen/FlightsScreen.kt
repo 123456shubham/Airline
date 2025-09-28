@@ -11,6 +11,7 @@ import airline.composeapp.generated.resources.list
 import airline.composeapp.generated.resources.right_arrow
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
 import org.shubham.airline.components.Spacer_20dp
 import org.shubham.airline.components.Spacer_4dp
@@ -38,6 +41,7 @@ import org.shubham.airline.components.SubtitleMedium
 import org.shubham.airline.components.TitleMedium
 import org.shubham.airline.components.TitleSmall
 import org.shubham.airline.model.FlightItemModel
+import org.shubham.airline.ui.theme.black
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 
@@ -51,6 +55,7 @@ object FlightsScreen : Screen {
 
 @Composable
 fun FlightScreenUI() {
+    val navigator= LocalNavigator.currentOrThrow
 
     val flightItemList=listOf(
         FlightItemModel("Book a Flight", Res.drawable.booking),
@@ -85,7 +90,16 @@ fun FlightScreenUI() {
 
             LazyColumn {
                 items(flightItemList.size){flightItemLists->
-                    FlightsScreenItem(flightItemList[flightItemLists])
+                    FlightsScreenItem(flightItemList[flightItemLists]){ name ->
+                        when (name) {
+                            "Book a Flight" -> navigator.push(BookingFlightScreen)
+                            "Manage Booking" -> { navigator.push(ManageBooking)}
+                            "Check In" -> { /* handle navigation */ }
+                            "Boarding Pass" -> { /* handle navigation */ }
+                            "Add-ons" -> { /* handle navigation */ }
+                            "Flight Schedule" -> { /* handle navigation */ }
+                        }
+                    }
 
                 }
             }
@@ -95,9 +109,10 @@ fun FlightScreenUI() {
 }
 
 @Composable
-fun FlightsScreenItem(flightItemModel: FlightItemModel){
+fun FlightsScreenItem(flightItemModel: FlightItemModel,
+                      onClick: (String) -> Unit ){
 
-    Card(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).padding(vertical = 10.dp),
+    Card(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).padding(vertical = 10.dp).clickable { onClick(flightItemModel.name) },
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(white)){
 
@@ -106,7 +121,9 @@ fun FlightsScreenItem(flightItemModel: FlightItemModel){
             Image(painterResource(flightItemModel.image), contentDescription = "Booking", modifier = Modifier.size(28.dp).align(
                 Alignment.CenterVertically))
             Spacer_20dp()
-            TitleSmall(flightItemModel.name,  modifier = Modifier.fillMaxWidth().weight(1f).align(Alignment.CenterVertically))
+            SubtitleLarge(flightItemModel.name,  modifier = Modifier.fillMaxWidth().weight(1f).align(Alignment.CenterVertically),
+                black
+            )
             Image(painterResource(Res.drawable.right_arrow), contentDescription = "right", modifier = Modifier.size(18.dp).align(
                 Alignment.CenterVertically))
 

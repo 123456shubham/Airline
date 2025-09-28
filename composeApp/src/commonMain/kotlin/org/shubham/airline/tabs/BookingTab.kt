@@ -13,6 +13,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.shubham.airline.HideBottomBar
 import org.shubham.airline.bottomNavigation.LocalShowBottomBar
 import org.shubham.airline.screen.BookingFlightScreen
+import org.shubham.airline.screen.DatePassengerScreen
 import org.shubham.airline.screen.FlightsScreen
 
 object BookingTab : Tab{
@@ -27,7 +28,7 @@ object BookingTab : Tab{
     @Composable
     override fun Content() {
         val updateBottomBar = LocalShowBottomBar.current
-        Navigator(BookingFlightScreen) { navigator ->
+        Navigator(DatePassengerScreen) { navigator ->
             val currentScreen = navigator.items.lastOrNull() // ✅ get current screen from stack
             updateBottomBar(currentScreen !is HideBottomBar)
             CurrentScreen()

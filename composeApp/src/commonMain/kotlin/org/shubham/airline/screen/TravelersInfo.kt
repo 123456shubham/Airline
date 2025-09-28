@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.Spacer_10dp
@@ -62,7 +63,7 @@ import org.shubham.airline.ui.theme.grey
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 
-object TravelersInfo : Screen{
+object TravelersInfo : Screen, HideBottomBar{
     @Composable
     override fun Content() {
         TravelersUI()
