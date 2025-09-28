@@ -94,7 +94,7 @@ fun FlightScreenUI() {
                         when (name) {
                             "Book a Flight" -> navigator.push(BookingFlightScreen)
                             "Manage Booking" -> { navigator.push(ManageBooking)}
-                            "Check In" -> { /* handle navigation */ }
+                            "Check In" -> { navigator.push(CheckInScreen) }
                             "Boarding Pass" -> { /* handle navigation */ }
                             "Add-ons" -> { /* handle navigation */ }
                             "Flight Schedule" -> { /* handle navigation */ }

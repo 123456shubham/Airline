@@ -44,6 +44,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -67,7 +69,9 @@ kotlin {
             // For Transitions/Animations
             implementation("cafe.adriel.voyager:voyager-transitions:1.0.1")
 
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1") // latest
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1") // latest
+            implementation("network.chaintech:kmp-date-time-picker:1.1.1")
+
 
         }
         commonTest.dependencies {

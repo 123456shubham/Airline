@@ -360,6 +360,7 @@ fun FlightCardUI() {
 }
 
 
+@Suppress("SuspiciousIndentation")
 @Composable
 fun FlightListUI() {
     val navigator=LocalNavigator.currentOrThrow

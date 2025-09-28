@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,6 +44,10 @@ import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import kotlinx.datetime.LocalDate
+import network.chaintech.kmp_date_time_picker.ui.datepicker.WheelDatePickerView
+import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
+import network.chaintech.kmp_date_time_picker.utils.now
 import org.jetbrains.compose.resources.painterResource
 import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
@@ -59,7 +64,7 @@ import org.shubham.airline.ui.theme.grey
 import org.shubham.airline.ui.theme.skyBlue
 import org.shubham.airline.ui.theme.white
 
-object DatePassengerScreen : Screen , HideBottomBar{
+object DatePassengerScreen : Screen {
     @Composable
     override fun Content() {
 
@@ -248,11 +253,52 @@ fun DatePassengerScreenUI(){
 @Composable
 fun DateDepartsReturnUI(){
 
+    var departDatePicker by rememberSaveable { mutableStateOf(false) }
+    var returnDatePicker by rememberSaveable { mutableStateOf(false) }
 
+
+    WheelDatePickerView(showDatePicker=departDatePicker,
+        height = 200.dp ,
+        dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
+        title = "Depart Date ",
+        rowCount = 3,
+        titleStyle = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.Bold),
+        doneLabel = "Done", // ✅ just pass text
+        onDoneClick = {
+            departDatePicker=false
+            print("Done ${it}")
+        },
+        yearsRange = 1920..LocalDate.now().year,
+        onDismiss = {
+            departDatePicker=false
+            print("Dismiss")
+        }
+    )
+
+
+    WheelDatePickerView(showDatePicker=returnDatePicker,
+        height = 200.dp ,
+        dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
+        title = "Return Date ",
+        rowCount = 3,
+        titleStyle = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.Bold),
+        doneLabel = "Done", // ✅ just pass text
+        onDoneClick = {
+            returnDatePicker=false
+            print("Done ${it}")
+        },
+        onDismiss = {
+            returnDatePicker=false
+            print("Dismiss")
+        }
+    )
 
     Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 20.dp)){
 
-        Card(modifier = Modifier.fillMaxWidth().weight(1f).padding(end = 20.dp), colors = CardDefaults.cardColors(white), elevation = CardDefaults.cardElevation(10.dp)){
+        Card(modifier = Modifier.fillMaxWidth().weight(1f)
+            .padding(end = 20.dp).clickable{departDatePicker=true},
+            colors = CardDefaults.cardColors(white),
+            elevation = CardDefaults.cardElevation(10.dp)){
             Column(modifier = Modifier.fillMaxWidth()){
                 Spacer_10dp()
                 Row (modifier = Modifier.padding(horizontal = 10.dp)){
@@ -267,7 +313,10 @@ fun DateDepartsReturnUI(){
 
             }
         }
-        Card(modifier = Modifier.fillMaxWidth().weight(1f).padding(start = 20.dp), colors = CardDefaults.cardColors(white), elevation = CardDefaults.cardElevation(10.dp)){
+        Card(modifier = Modifier.fillMaxWidth()
+            .weight(1f).padding(start = 20.dp).clickable{returnDatePicker=true},
+            colors = CardDefaults.cardColors(white),
+            elevation = CardDefaults.cardElevation(10.dp)){
             Column(modifier = Modifier.fillMaxWidth()){
                 Spacer_10dp()
                 Row (modifier = Modifier.padding(horizontal = 10.dp)){

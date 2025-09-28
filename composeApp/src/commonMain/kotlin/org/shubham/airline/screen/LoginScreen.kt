@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -60,7 +61,7 @@ fun LoginScreenUI(){
     val navigator=LocalNavigator.currentOrThrow
     var email by rememberSaveable{mutableStateOf("")}
     var password by rememberSaveable{mutableStateOf("")}
-    Box(modifier = Modifier.fillMaxSize()){
+    Box(modifier = Modifier.fillMaxSize().navigationBarsPadding()){
         Image(painterResource(Res.drawable.logo), contentDescription = "Logo", modifier = Modifier.fillMaxWidth().height(200.dp).align(
             Alignment.TopCenter))
         Column(modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp).align(Alignment.Center)) {

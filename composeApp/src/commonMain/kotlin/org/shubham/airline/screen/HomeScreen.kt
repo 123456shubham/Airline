@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
@@ -22,6 +23,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -59,6 +62,7 @@ fun HomeScreenUI(){
 
     var startTrip by rememberSaveable { mutableStateOf("") }
     var endTrip by rememberSaveable { mutableStateOf("") }
+
     Box(modifier = Modifier.fillMaxSize().background(skyBlue)){
 
         Image(painterResource(Res.drawable.world), contentDescription = "World", contentScale = ContentScale.Crop, modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter))
@@ -113,7 +117,7 @@ fun HomeScreenUI(){
                             label = "Enter Start Trip",
                             borderColor = black,
                             leadingIcon = Res.drawable.flight,
-                            modifier = Modifier.padding(bottom = 20.dp)
+                            modifier = Modifier.padding(bottom = 10.dp)
                         )
 
                         // Exchange icon
@@ -121,7 +125,7 @@ fun HomeScreenUI(){
                             painter = painterResource(Res.drawable.exchange),
                             contentDescription = "Exchange",
                             modifier = Modifier
-                                .padding(bottom = 20.dp)
+                                .padding(bottom = 10.dp)
                                 .size(28.dp)
                                 .align(Alignment.CenterHorizontally)
                                 .rotate(90f), // 👈 rotate by 90 degrees, ,
@@ -164,7 +168,7 @@ fun HomeScreenUI(){
 
 @Composable
 fun PopularTrip(){
-    Box(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 20.dp).width(200.dp).height(200.dp)){
+    Box(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).padding(start = 10.dp, end = 10.dp, top = 20.dp).width(100.dp).height(100.dp)){
         Image(painterResource(Res.drawable.girl), contentDescription = "World", contentScale = ContentScale.Crop, modifier = Modifier.clip(RoundedCornerShape(10.dp)))
         SubtitleLarge("Trip Name", modifier = Modifier.align(Alignment.BottomStart ).padding(start = 10.dp, bottom = 10.dp),white)
     }
