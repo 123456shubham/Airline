@@ -25,6 +25,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import io.github.alexzhirkevich.qrose.options.QrOptions
 import io.github.alexzhirkevich.qrose.rememberQrCodePainter
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.SubtitleLarge
 import org.shubham.airline.ui.theme.black
@@ -188,7 +189,7 @@ fun QrCodeBox(content: String) {
         )
     }
 }
-object BoardingPassScreen : Screen{
+object BoardingPassScreen : Screen, HideBottomBar{
     @Composable
     override fun Content() {
         BoardingPassScreenUI()

@@ -29,6 +29,7 @@ import org.shubham.airline.screen.FlightsScreen
 import org.shubham.airline.screen.HomeScreen
 import org.shubham.airline.screen.LoginScreen
 import org.shubham.airline.screen.ManageBooking
+import org.shubham.airline.screen.ProfileScreen
 import org.shubham.airline.screen.RegisterScreen
 import org.shubham.airline.screen.SplashScreen
 import org.shubham.airline.screen.TravelersInfo

@@ -4,6 +4,8 @@ import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.exchange
 import airline.composeapp.generated.resources.flight
 import airline.composeapp.generated.resources.girl
+import airline.composeapp.generated.resources.p
+import airline.composeapp.generated.resources.paris
 import airline.composeapp.generated.resources.world
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,8 +38,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.components.CommonTextView
 import org.shubham.airline.components.CustomOutlinedTextField
 import org.shubham.airline.components.Spacer_10dp
 import org.shubham.airline.components.Spacer_32dp
@@ -169,7 +173,7 @@ fun HomeScreenUI(){
 @Composable
 fun PopularTrip(){
     Box(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).padding(start = 10.dp, end = 10.dp, top = 20.dp).width(100.dp).height(100.dp)){
-        Image(painterResource(Res.drawable.girl), contentDescription = "World", contentScale = ContentScale.Crop, modifier = Modifier.clip(RoundedCornerShape(10.dp)))
-        SubtitleLarge("Trip Name", modifier = Modifier.align(Alignment.BottomStart ).padding(start = 10.dp, bottom = 10.dp),white)
+        Image(painterResource(Res.drawable.p), contentDescription = "Paris", contentScale = ContentScale.Crop, modifier = Modifier.clip(RoundedCornerShape(10.dp)))
+        CommonTextView("Paris", modifier = Modifier.align(Alignment.BottomStart ).padding(start = 10.dp, bottom = 10.dp), fontSize = 14.sp)
     }
 }

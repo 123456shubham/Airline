@@ -34,11 +34,13 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.screen.BoardingPassScreen
 import org.shubham.airline.ui.theme.DarkBlue
+import org.shubham.airline.ui.theme.skyBlue
 
 
-object PaymentScreen : Screen{
+object PaymentScreen : Screen, HideBottomBar{
     @Composable
     override fun Content() {
         SuccessScreen("1234567890")
@@ -78,7 +80,7 @@ fun SuccessScreen(paymentId: String) {
                                 fontWeight = FontWeight.Medium
                             )
                         ) {
-                            append("Your Order has been Accepted")
+                            append("Your Booking Confirmed!")
                         }
 
                         withStyle(
@@ -101,7 +103,7 @@ fun SuccessScreen(paymentId: String) {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "Your order has been placed and is on",  fontFamily = Montserrat,
+            Text(text = "Your boarding pass has been generated!",
                 fontWeight = FontWeight.Normal)
             Text(text = "its way to being processed",  fontFamily = Montserrat,
                 fontWeight = FontWeight.Normal)
@@ -116,7 +118,7 @@ fun SuccessScreen(paymentId: String) {
                 navigator.push(BoardingPassScreen)
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF53B175),
+                containerColor = skyBlue,
                 contentColor = Color(0xFFFFFFFF)
             ),
             shape = RoundedCornerShape(19),

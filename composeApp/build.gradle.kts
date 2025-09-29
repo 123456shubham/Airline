@@ -29,21 +29,22 @@ kotlin {
     
     jvm()
     
-    js {
-        browser()
-        binaries.executable()
-    }
-    
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
+//    js {
+//        browser()
+//        binaries.executable()
+//    }
+//
+//    @OptIn(ExperimentalWasmDsl::class)
+//    wasmJs {
+//        browser()
+//        binaries.executable()
+//    }
     
     sourceSets {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
 
         }
         commonMain.dependencies {
@@ -59,19 +60,21 @@ kotlin {
             // Voyager Core
             implementation("cafe.adriel.voyager:voyager-navigator:1.0.1")
 
-            // For Tab Navigation
+           //  For Tab Navigation
             implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.1")
 
-            // For Bottom Navigation
+           //  For Bottom Navigation
             implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.1")
 
             // For Transitions/Animations
             implementation("cafe.adriel.voyager:voyager-transitions:1.0.1")
 
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1") // latest
             implementation("network.chaintech:kmp-date-time-picker:1.1.1")
-            implementation("io.github.alexzhirkevich:qrose:1.0.0") // or latest
 
+//            implementation("io.github.alexzhirkevich:qrose:1.0.0") // or latest
+            implementation("io.github.alexzhirkevich:qrose:1.0.0") {
+                exclude(group = "io.github.alexzhirkevich", module = "qrose-core-android")
+            }
 
         }
         commonTest.dependencies {
@@ -80,6 +83,8 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+
+
         }
     }
 }

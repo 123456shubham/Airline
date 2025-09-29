@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
@@ -32,6 +33,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CustomOutlinedTextField
 import org.shubham.airline.components.CustomPasswordField
@@ -64,7 +66,7 @@ fun RegisterScreenUI(){
     var email by rememberSaveable{mutableStateOf("")}
     var password by rememberSaveable{mutableStateOf("")}
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().navigationBarsPadding()) {
         Image(
             painterResource(Res.drawable.logo),
             contentDescription = null,
@@ -76,7 +78,7 @@ fun RegisterScreenUI(){
             modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp)
                 .align(Alignment.Center)
         ) {
-            Spacer_10dp()
+            Spacer_32dp()
             TitleLarge(
                 "Register",
                 textColour = black,

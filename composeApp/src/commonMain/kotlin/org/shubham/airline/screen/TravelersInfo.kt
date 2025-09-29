@@ -81,7 +81,7 @@ fun TravelersUI(){
 
     val navigator= LocalNavigator.currentOrThrow
 
-    LazyColumn {
+    LazyColumn(modifier = Modifier.fillMaxSize().background(white)) {
         item {
             Box(modifier = Modifier.fillMaxSize().background(white)){
                 Column {
