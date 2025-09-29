@@ -44,7 +44,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
 
         }
         commonMain.dependencies {
@@ -71,6 +70,7 @@ kotlin {
 
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1") // latest
             implementation("network.chaintech:kmp-date-time-picker:1.1.1")
+            implementation("io.github.alexzhirkevich:qrose:1.0.0") // or latest
 
 
         }

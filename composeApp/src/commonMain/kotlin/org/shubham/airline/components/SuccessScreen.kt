@@ -1,5 +1,8 @@
 package org.shubham.airline.components
 
+import airline.composeapp.generated.resources.Res
+import airline.composeapp.generated.resources.success
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,10 +30,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import org.jetbrains.compose.resources.painterResource
+import org.shubham.airline.screen.BoardingPassScreen
 import org.shubham.airline.ui.theme.DarkBlue
 
+
+object PaymentScreen : Screen{
+    @Composable
+    override fun Content() {
+        SuccessScreen("1234567890")
+    }
+}
 @Composable
 fun SuccessScreen(paymentId: String) {
+    val  navigator= LocalNavigator.currentOrThrow
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
@@ -42,7 +58,10 @@ fun SuccessScreen(paymentId: String) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
             Column(modifier= Modifier.size(200.dp)) {
-//                LottieAnimationView(animationResId = R.raw.tick)
+//                LottieAnimationView(animationResId = Res.raw.tick)
+
+                Image(painter = painterResource(Res.drawable.success),contentDescription = "Success",)
+
             }
             Spacer(modifier = Modifier.height(60.dp))
             Row(
@@ -93,9 +112,8 @@ fun SuccessScreen(paymentId: String) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             onClick = {
-//                navController.navigate(Screen.Main.route) {
-//                    popUpTo(0) // ✅ Clears the entire back stack
-//                }
+
+                navigator.push(BoardingPassScreen)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF53B175),
@@ -106,7 +124,7 @@ fun SuccessScreen(paymentId: String) {
                 pressedElevation = 8.dp)
         ) {
             Text(
-                text = "Back To Shop",
+                text = "Go to Boarding Pass",
                 fontFamily = Montserrat,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFFFFFFF)

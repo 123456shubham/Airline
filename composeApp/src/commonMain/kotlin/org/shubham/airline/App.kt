@@ -19,6 +19,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import airline.composeapp.generated.resources.Res
 import airline.composeapp.generated.resources.compose_multiplatform
 import cafe.adriel.voyager.navigator.Navigator
+import org.shubham.airline.screen.BoardingPassScreen
 import org.shubham.airline.screen.BookingFlightScreen
 import org.shubham.airline.screen.DatePassengerScreen
 import org.shubham.airline.screen.DepartureAirportScreen
@@ -36,7 +37,7 @@ import org.shubham.airline.screen.TravelersInfo
 @Preview
 fun App() {
 
-    Navigator(LoginScreen)
+    Navigator(SplashScreen)
 
 //    MaterialTheme {
 //        var showContent by remember { mutableStateOf(false) }

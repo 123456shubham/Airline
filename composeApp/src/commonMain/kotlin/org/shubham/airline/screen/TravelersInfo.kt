@@ -17,8 +17,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -48,10 +50,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.jetbrains.compose.resources.painterResource
 import org.shubham.airline.HideBottomBar
 import org.shubham.airline.components.AppButton
 import org.shubham.airline.components.CommonTextView
+import org.shubham.airline.components.PaymentScreen
 import org.shubham.airline.components.Spacer_10dp
 import org.shubham.airline.components.Spacer_20dp
 import org.shubham.airline.components.Spacer_32dp
@@ -74,64 +79,89 @@ object TravelersInfo : Screen, HideBottomBar{
 @Composable
 fun TravelersUI(){
 
-    Box(modifier = Modifier.fillMaxSize().background(white)){
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
-                    .clip(RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp))
-                    .background(skyBlue) // apply after clip
-            ) {
+    val navigator= LocalNavigator.currentOrThrow
 
-                // Back button aligned to start
-                Image(
-                    painter = painterResource(Res.drawable.left_arrow),
-                    contentDescription = "Back Btn",
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .padding(start = 16.dp)
-                        .size(18.dp),
-                    colorFilter = ColorFilter.tint(white)
-                )
+    LazyColumn {
+        item {
+            Box(modifier = Modifier.fillMaxSize().background(white)){
+                Column {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .clip(RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp))
+                            .background(skyBlue) // apply after clip
+                    ) {
 
-                // Title centered
-                SubtitleLarge(
-                    text = "Book a Flight",
-                    textColour = white,
-                    modifier = Modifier.align(Alignment.Center)
-                )
+                        // Back button aligned to start
+                        Image(
+                            painter = painterResource(Res.drawable.left_arrow),
+                            contentDescription = "Back Btn",
+                            modifier = Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = 16.dp)
+                                .size(18.dp),
+                            colorFilter = ColorFilter.tint(white)
+                        )
+
+                        // Title centered
+                        SubtitleLarge(
+                            text = "Book a Flight",
+                            textColour = white,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+
+                    }
+
+                    Card(modifier = Modifier.fillMaxWidth().offset(y= (-20).dp)
+                        .padding(start = 20.dp, end = 20.dp),
+                        colors = CardDefaults.cardColors(white),
+                        elevation = CardDefaults.cardElevation(10.dp)
+                    ){
+                        CommonTextView("Travels Info",
+                            textAlign = TextAlign.Center,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = black,
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
+
+                    }
+
+
+
+
+
+
+
+                }
 
             }
 
-            Card(modifier = Modifier.fillMaxWidth().offset(y= (-20).dp)
-                .padding(start = 20.dp, end = 20.dp),
-                colors = CardDefaults.cardColors(white),
-                elevation = CardDefaults.cardElevation(10.dp)
-            ){
-                CommonTextView("Travels Info",
-                    textAlign = TextAlign.Center,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = black,
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 15.dp))
+        }
 
-            }
-
+        item {
             Spacer_20dp()
 
             TravelInfoUI()
-            Spacer_20dp()
-            TravelPassenger()
-            Spacer_20dp()
-            PassengerContactInformation()
-            Spacer_20dp()
-            TravelConditionCheck()
-
-            Spacer_32dp()
-            AppButton("Continue",background=skyBlue, onClick = {}, paddingStart = 20.dp, paddingEnd = 20.dp)
         }
 
+        item {
+            Spacer_20dp()
+            TravelPassenger()
+        }
+
+        item {
+            Spacer_20dp()
+            PassengerContactInformation()
+        }
+        item {
+            Spacer_20dp()
+            TravelConditionCheck()
+        }
+        item {
+            Spacer_20dp()
+            AppButton("Continue",background=skyBlue, onClick = {navigator.push(PaymentScreen)}, paddingStart = 20.dp, paddingEnd = 20.dp)
+        }
     }
 
 }
